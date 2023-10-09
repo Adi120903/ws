@@ -1,0 +1,41 @@
+#After click on Add button, Operaion.asmx.cs file will be automatically open 
+otherwise open it from Solution Explorer and Add the following code into
+Class Operation.
+
+ [WebMethod]
+ public double Add(double a, double b)
+ {
+ double sum = a + b;
+ return sum;
+ }
+ [WebMethod]
+ public double Multi(double a, double b)
+ {
+ double sum = a * b;
+ return sum;
+ }
+
+#Copy this link and Don’t close Visual Studio and browser, just minimize it otherwise server 
+will stop. But save the link anywhere, so that we can use it later.
+
+https://localhost:44321/Operation.asmx?WSDL
+
+#Enter package name: com.dd
+
+#add the following code outside of try block of the Add.jsp file
+
+double num1 = Double.parseDouble(request.getParameter("txt1"));
+double num2 = Double.parseDouble(request.getParameter("txt2"));
+
+#Also pass num1, num2 to a and b respectively
+
+#Open index.html file of ServiceClient project and replace the contents
+of body tag with following code.
+
+<form>
+<input type="text" name="txt1" placeholder="Enter First 
+Number"><br><br>
+<input type="text" name="txt2" placeholder="Enter Second 
+Number"><br><br>
+ <input type="submit" formaction="Add.jsp" value="Add Numbers"> 
+</form>

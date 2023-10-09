@@ -1,0 +1,70 @@
+Aim : Write a program to implement to create a simple web service that converts 
+the temperature from Fahrenheit to Celsius and vice a versa.
+
+
+F_to_C
+
+code:-
+Double c = (f-32)*1.8;
+return c;
+
+C_to_F
+
+code:-
+Double f = (c*1.8)+32;
+return f;
+
+#index page of Temp_client :
+
+<html>
+    <head>
+        <title>Temperature Converter</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form>
+	<br><input type="text" name="data"><br>
+	<br><input type="submit" value="Convert F to C" name="ftoc" 
+	formaction="f_to_c.jsp"><br>
+	<br><input type="submit" value="Convert C to F" name="ctof" 
+	formaction="c_to_f.jsp"> 
+	</form>
+    </body>
+</html>
+
+#c_to_f.jsp page code:
+
+<%
+        String d = request.getParameter("data");
+        Integer dd = Integer.parseInt(d);
+    try {
+	service.TempService_Service service = new service.TempService_Service();
+	service.TempService port = service.getTempServicePort();
+	 // TODO initialize WS operation arguments here
+	double c = dd;
+	// TODO process result here
+	java.lang.Double result = port.cToF(c);
+	out.println("Result = "+result);
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>
+
+#f_to_c.jsp page code:
+
+<%
+        String d = request.getParameter("data");
+        Integer dd = Integer.parseInt(d);
+    try {
+	service.TempService_Service service = new service.TempService_Service();
+	service.TempService port = service.getTempServicePort();
+	 // TODO initialize WS operation arguments here
+	double f = dd;
+	// TODO process result here
+	java.lang.Double result = port.fToC(f);
+	out.println("Result = "+result);
+    } catch (Exception ex) {
+	// TODO handle custom exceptions here
+    }
+    %>

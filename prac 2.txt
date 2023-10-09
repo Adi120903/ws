@@ -1,0 +1,80 @@
+Aim: Write a program to implement the operation can receive request and will 
+return a response in two ways. a) One - Way operation b) Request –Response.
+
+# open the index.html of ServiceClient project by double click on it and 
+add the following code in between body tag.
+
+<form>
+ <h2>One-way Operation</h2><br>
+<input type="text" name="ID" placeholder="Enter ID"><br><br>
+ <input type="submit" formaction="Del_data.jsp" value="Delete 
+Data"><br>
+ <h1>--------------------------------------------</h1>
+ <h2>Request-Response operation</h2><br><br>
+ <input type="submit" formaction="getData.jsp" value="Get Data">
+</form>
+
+# open DeleteData.java file by double click on it and add the following
+code in the class and save it by pressing Ctrl+S.
+
+public static void deldata(String id){
+ String a = id;
+Data ob = new Data();
+ ob.remove(a);
+ System.out.println("Data is deleted.");
+ }
+
+# open the Del_data.jsp file and replace the contents of body with the 
+following code.
+
+<%@ page import="com.ss.DeleteData"%>
+ <% 
+ String id = request.getParameter("ID"); 
+ DeleteData.deldata(id); 
+ %>
+
+#  open the getData.jsp file and replace the contents of html tag with the 
+following code and save it.
+
+<head>
+ <title>TODO supply a title</title>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initialscale=1.0">
+ <style>
+ table {
+ font-family: arial, sans-serif;
+ border-collapse: collapse;
+ }
+ td, th {
+ border: 1px solid #000000;
+ text-align: center;
+ padding: 8px;
+ }
+</style>
+ <script>
+ var request = new XMLHttpRequest();
+ request.open('GET', 
+'http://localhost:8080/Server/webresources/com.kk.friends/', true);
+ request.onload = function () {
+// begin accessing JSON data here
+ var data = JSON.parse(this.response);
+ for (var i = 0; i < data.length; i++) {
+var table = document.getElementById("myTable");
+ var row = table.insertRow();
+ var cell1 = row.insertCell(0);
+ var cell2 = row.insertCell(1);
+ cell1.innerHTML = data[i].id;
+ cell2.innerHTML = data[i].firstname;
+ }
+ };
+ request.send();
+ </script>
+ </head>
+ <body>
+ <table id="myTable">
+ <tr>
+ <th> ID</th>
+ <th>NAME</th>
+ </tr>
+ </table>
+ </body>
